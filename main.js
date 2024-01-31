@@ -2,7 +2,7 @@ import { searchCep } from './src/helpers/cepFunctions.js';
 import { fetchProductsList, fetchProduct } from './src/helpers/fetchFunctions.js';
 import { saveCartID, getSavedCartIDs } from './src/helpers/cartFunctions.js';
 import { createProductElement, createCartProductElement } from './src/helpers/shopFunctions.js';
-import './style.css';
+// import './style.css';
 
 try {
   const totalPrice = document.querySelector('.total-price');
@@ -39,7 +39,7 @@ try {
   const getClassProducts = document.querySelector('.products');
   loadingElement.remove();
   for (let index = 0; index < arrayForProducts.length; index += 1) {
-    test = getClassProducts.appendChild(createProductElement(arrayForProducts[index]));
+    getClassProducts.appendChild(createProductElement(arrayForProducts[index]));
   }
   getError.remove();
   totalPrice.innerHTML = localStorage.getItem('totalPrice');
