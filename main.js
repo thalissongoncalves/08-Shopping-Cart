@@ -43,6 +43,9 @@ try {
   }
   getError.remove();
   totalPrice.innerHTML = localStorage.getItem('totalPrice');
+  if(Number(totalPrice.innerHTML) < 0) {
+    totalPrice.innerHTML = 0;
+  };
   const getButton = document.querySelectorAll('.product__add');
   getButton.forEach((button) => {
     button.addEventListener('click', async () => {
