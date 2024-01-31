@@ -10,6 +10,10 @@ try {
   const cartProducts = document.querySelector('.cart__products');
   const getSavedProducts = await getSavedCartIDs();
   const arrayPromise = getSavedProducts.map((element) => fetchProduct(element));
+  if (cartProducts.length === 0) {
+    totalPrice.innerHTML = 0;
+    localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
+  };
   Promise.all(arrayPromise)
     .then((results) => {
       for (let index = 0; index < results.length; index += 1) {
@@ -29,6 +33,10 @@ try {
           localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
         });
       });
+      if (cartProducts.length === 0) {
+        totalPrice.innerHTML = 0;
+        localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
+      };
     })
     .catch((error) => {
       console.log(error);
@@ -43,10 +51,12 @@ try {
   }
   getError.remove();
   totalPrice.innerHTML = localStorage.getItem('totalPrice');
-  if(Number(totalPrice.innerHTML) < 0) {
+  if(totalPrice.innerHTML < 0) {
     totalPrice.innerHTML = 0;
+    localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
   };
   const getButton = document.querySelectorAll('.product__add');
+  
   getButton.forEach((button) => {
     button.addEventListener('click', async () => {
       const saveElements = button.parentNode;
@@ -67,6 +77,10 @@ try {
       getButtonRemove.addEventListener('click', () => {
         price -= transformNumber;
         totalPrice.innerHTML = price;
+        if(totalPrice.innerHTML < 0) {
+          totalPrice.innerHTML = 0;
+          localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
+        };
         localStorage.setItem('totalPrice', totalPrice.innerHTML.toString());
       });
     });
